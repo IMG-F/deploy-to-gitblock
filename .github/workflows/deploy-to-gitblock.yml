@@ -15,7 +15,7 @@ jobs:
           coverFilePath: "./test/cover.png"
           title: "GitHub Actions 自动化发布测试"
           description: >-
-            **事件名: ${github.event_name}**  
+            **事件名: ${{ github.event_name }}**  
 
             ------  
 
