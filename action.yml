@@ -1,0 +1,39 @@
+name: "GitBlock Deploy Action"
+description: "A GitHub Action to deploy work to GitBlock"
+author: "IMG"
+
+branding:
+  icon: arrow-up
+  color: yellow
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
+
+inputs:
+  projectId:
+    description: "Project id"
+    required: true
+  sb3FilePath:
+    description: "Path to the .sb3 file"
+    required: true
+  coverFilePath:
+    description: "Path to the cover image file"
+    required: true
+  title:
+    description: "Title of the project"
+    required: true
+  description:
+    description: "Description of the project"
+    required: false
+    default: ""
+  tags:
+    description: "Tags for the project (separated by commas)"
+    required: false
+    default: ""
+  gitblockSessionId:
+    description: "GitBlock Session ID"
+    required: true
+  gitblockAuth:
+    description: "GitBlock Auth Token"
+    required: true

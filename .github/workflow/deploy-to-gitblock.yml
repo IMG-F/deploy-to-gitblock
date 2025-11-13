@@ -1,0 +1,45 @@
+name: Test Deploy To GitBlock
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run my action
+        uses: ./
+        with:
+          projectId: "1409826"
+          sb3FilePath: "./test/KanonBloss.sb3"
+          coverFilePath: "./test/cover.png"
+          title: "GitHub Actions 自动化发布测试"
+          description: >-
+            **事件名: ${github.event_name}**  
+
+            ------  
+
+            **简介**  
+            
+            [goboscript](https://github.com/aspizu/goboscript/) 使 sc 作品可以用 git 管理版本并在 github 上存储, 
+            既然上传了 github, 那怎么能不试试强大的 Github Actions 呢?  
+            
+            所以便有了 [IMG-F/deploy-to-gitblock.yml](https://github.com/IMG-F/deploy-to-gitblock) 这个 action , 
+            通过 github actions 自动化发布 sc 作品到 gitblock.  
+
+            ------  
+            
+            **工作流程**  
+            
+            在 github 仓库上发布 release 后触发 workflow 运行, runner 拉取 goboscript 编译器进行自动构建, 
+            并把构建产物上传至 release , 同时上传到 gitblock 并发布, 全程无需打开编辑器页面.  
+            
+            ------  
+
+            **更多**  
+
+            详见 [ming-sc/KanonBloss](https://github.com/ming-sc/KanonBloss)
+
+          tags: "Github Actions, Kanon, Key"
+          gitblockSessionId: "${{ secrets.GITBLOCK_SESSION_ID }}"
+          gitblockAuth: "${{ secrets.GITBLOCK_AUTH_TOKEN }}"
