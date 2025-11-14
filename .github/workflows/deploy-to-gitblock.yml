@@ -27,7 +27,7 @@ jobs:
             [goboscript](https://github.com/aspizu/goboscript/) 使 sc 作品可以用 git 管理版本并在 github 上存储, 
             既然上传了 github, 那怎么能不试试强大的 Github Actions 呢?  
             
-            所以便有了 [IMG-F/deploy-to-gitblock.yml](https://github.com/IMG-F/deploy-to-gitblock) 这个 action , 
+            所以便有了 [IMG-F/deploy-to-gitblock](https://github.com/IMG-F/deploy-to-gitblock) 这个 action , 
             通过 github actions 自动化发布 sc 作品到 gitblock.  
 
 

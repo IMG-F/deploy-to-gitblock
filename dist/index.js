@@ -113387,6 +113387,25 @@ function updateDescp({
         })
     });
 }
+;// CONCATENATED MODULE: ./src/public/publish.js
+
+
+function publish({
+                            projectId
+                        }) {
+    return request({
+        url: `https://gitblock.cn/WebApi/Projects/${projectId}/Publish`,
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Referer': `https://gitblock.cn/Projects/${projectId}`,
+        },
+        data: new URLSearchParams({
+            summary: '',
+            captchaCode: ''
+        })
+    });
+}
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(37484);
 ;// CONCATENATED MODULE: ./src/main.js
@@ -113422,7 +113441,8 @@ function run() {
 run().then(() => {
     console.log('Project publish completed successfully.');
 }).catch(err => {
-    console.error(err);
+    console.error('Error during project publish: ', err);
+    core.setFailed(err.message);
 });
 
 function main({
@@ -113451,10 +113471,10 @@ function main({
                 updateDescp({projectId: projectId, description: description})
             ]);
         })
-        // .then(() => {
-        //     console.log("Project info updated. Start publishing project...");
-        //     return publish({projectId: projectId});
-        // });
+        .then(() => {
+            console.log("Project info updated. Start publishing project...");
+            return publish({projectId: projectId});
+        });
 }
 
 async function uploadSb3File({projectId, sb3FilePath, coverFilePath}) {

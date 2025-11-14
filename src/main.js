@@ -30,7 +30,8 @@ export function run() {
 run().then(() => {
     console.log('Project publish completed successfully.');
 }).catch(err => {
-    console.error(err);
+    console.error('Error during project publish: ', err);
+    core.setFailed(err.message);
 });
 
 export function main({
@@ -59,10 +60,10 @@ export function main({
                 updateDescp({projectId: projectId, description: description})
             ]);
         })
-        // .then(() => {
-        //     console.log("Project info updated. Start publishing project...");
-        //     return publish({projectId: projectId});
-        // });
+        .then(() => {
+            console.log("Project info updated. Start publishing project...");
+            return publish({projectId: projectId});
+        });
 }
 
 export async function uploadSb3File({projectId, sb3FilePath, coverFilePath}) {
