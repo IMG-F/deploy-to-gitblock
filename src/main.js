@@ -3,6 +3,7 @@ import fs from "fs";
 import archiver from "archiver";
 import path from "path";
 import {PassThrough} from "stream";
+import {login} from "./public/login.js";
 import {setGitblockAuth} from "./utils/secret.js";
 import {uploadProject} from "./public/uploadProject.js";
 import {uploadAssets} from "./public/uploadAssets.js";
@@ -21,8 +22,8 @@ export function run() {
         title: core.getInput("title"),
         description: core.getInput("description"),
         tags: core.getInput("tags").split(",").map(tag => tag.trim()),
-        gitblockSessionId: core.getInput("gitblockSessionId"),
-        gitblockAuth: core.getInput("gitblockAuth")
+        username: core.getInput("username"),
+        password: core.getInput("password")
     })
 }
 
@@ -39,21 +40,29 @@ export function main({
                          title,
                          description,
                          tags,
-                         gitblockSessionId,
-                         gitblockAuth
+                         username,
+                         password
                      }) {
-    setGitblockAuth({newSessionId: gitblockSessionId, newAuth: gitblockAuth});
-    return uploadSb3File({projectId, sb3FilePath, coverFilePath})
+    return login({username, password})
+        .then(({gitblockSessionId, gitblockAuth}) => {
+            console.log("Login successful.");
+            return setGitblockAuth({newSessionId: gitblockSessionId, newAuth: gitblockAuth});
+        }).then(() => {
+            console.log("Start upload sb3 file...");
+            return uploadSb3File({projectId, sb3FilePath, coverFilePath})
+        })
         .then(() => {
+            console.log("Upload sb3 file completed. Start updating project info...");
             return Promise.all([
                 updateTitle({projectId: projectId, title: title}),
                 updateTags({projectId: projectId, tags: tags}),
                 updateDescp({projectId: projectId, description: description})
-            ])
-            // .then(() => {
-            //     return publish({projectId: projectId});
-            // });
-        });
+            ]);
+        })
+        // .then(() => {
+        //     console.log("Project info updated. Start publishing project...");
+        //     return publish({projectId: projectId});
+        // });
 }
 
 export async function uploadSb3File({projectId, sb3FilePath, coverFilePath}) {

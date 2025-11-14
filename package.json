@@ -10,10 +10,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@actions/core": "^1.11.1",
     "archiver": "^7.0.1",
     "axios": "^1.13.2",
-    "unzipper": "^0.12.3",
-    "@actions/core": "^1.11.1"
+    "crypto-js": "^4.2.0",
+    "unzipper": "^0.12.3"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.4"

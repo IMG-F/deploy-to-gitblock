@@ -31,9 +31,9 @@ inputs:
     description: "Tags for the project (separated by commas)"
     required: false
     default: ""
-  gitblockSessionId:
-    description: "GitBlock Session ID"
+  username:
+    description: "GitBlock Username"
     required: true
-  gitblockAuth:
-    description: "GitBlock Auth Token"
+  password:
+    description: "GitBlock Password"
     required: true
