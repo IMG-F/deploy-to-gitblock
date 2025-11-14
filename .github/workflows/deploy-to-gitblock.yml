@@ -1,4 +1,4 @@
-name: Test Deploy To GitBlock
+﻿name: Test Deploy To GitBlock
 on:
   workflow_dispatch:
 
@@ -49,6 +49,6 @@ jobs:
 
             详见 [ming-sc/KanonBloss](https://github.com/ming-sc/KanonBloss)
 
-          tags: "Github Actions, Kanon, Key"
+          tags: "Github Actions, Kanon, Key, VladKOt5"
           username: "${{ secrets.GITBLOCK_USERNAME }}"
           password: "${{ secrets.GITBLOCK_PASSWORD }}"
